@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Placement Analyzer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Background mesh -->
+  <div class="bg-mesh">
+    <div class="mesh-orb mesh-orb-1"></div>
+    <div class="mesh-orb mesh-orb-2"></div>
+    <div class="mesh-orb mesh-orb-3"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#logoGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="2" y1="2" x2="22" y2="22">
+                <stop offset="0%" stop-color="#818cf8"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="logo-text">PlaceIQ</span>
+        <span class="logo-badge">AI</span>
+      </div>
+      <nav class="header-nav">
+        <span class="nav-tag">Powered by XGBoost</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        <span>ML-Powered Career Intelligence</span>
+      </div>
+      <h1 class="hero-title">Predict Your<br/><span class="gradient-text">Placement Outcome</span></h1>
+      <p class="hero-sub">Enter your academic and professional profile. Our XGBoost model analyzes 9 key parameters to give you a precise placement probability and personalized roadmap.</p>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-container">
+
+    <!-- INPUT FORM CARD -->
+    <div class="card form-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <h2 class="card-title">Student Profile</h2>
+          <p class="card-subtitle">Fill in your academic and skill details below</p>
+        </div>
+        <div class="card-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="8" r="4" stroke="#818cf8" stroke-width="1.8"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#818cf8" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <form action="/predict" method="POST" class="predict-form" id="predictForm">
+
+        <!-- Academic Details -->
+        <div class="form-section-label">Academic Details</div>
+        <div class="form-grid form-grid-3">
+
+          <div class="input-group">
+            <label class="input-label" for="cgpa">
+              CGPA <span class="label-hint">out of 10</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="cgpa" name="cgpa" class="form-input"
+                     min="0" max="10" step="0.1" placeholder="e.g. 8.5" required />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="backlogs">
+              Active Backlogs <span class="label-hint">count</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="backlogs" name="backlogs" class="form-input"
+                     min="0" max="20" step="1" placeholder="e.g. 0" required />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3 8-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="internships">
+              Internships <span class="label-hint">completed</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="internships" name="internships" class="form-input"
+                     min="0" max="10" step="1" placeholder="e.g. 2" required />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Activities -->
+        <div class="form-section-label" style="margin-top:2rem;">Activities &amp; Achievements</div>
+        <div class="form-grid form-grid-3">
+
+          <div class="input-group">
+            <label class="input-label" for="projects">
+              Projects <span class="label-hint">built</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="projects" name="projects_count" class="form-input"
+                     min="0" max="30" step="1" placeholder="e.g. 5" required />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polyline points="16 18 22 12 16 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="8 6 2 12 8 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="certifications">
+              Certifications <span class="label-hint">earned</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="certifications" name="certifications" class="form-input"
+                     min="0" max="30" step="1" placeholder="e.g. 3" required />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="6" stroke="currentColor" stroke-width="1.8"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="hackathons">
+              Hackathons <span class="label-hint">participated</span>
+            </label>
+            <div class="input-wrap">
+              <input type="number" id="hackathons" name="hackathons" class="form-input"
+                     min="0" max="30" step="1" placeholder="e.g. 2" required />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Skill Sliders -->
+        <div class="form-section-label" style="margin-top:2rem;">Skill Assessment</div>
+        <div class="slider-grid">
+
+          <!-- Coding Skills -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="input-label" for="coding_skills">Coding Skills</label>
+              <div class="slider-value-wrap">
+                <span class="slider-value" id="coding_skills_val">50</span>
+                <span class="slider-level level-mid" id="coding_skills_level">Intermediate</span>
+              </div>
+            </div>
+            <div class="slider-track-wrap">
+              <div class="slider-progress" id="coding_skills_progress" style="width:50%"></div>
+              <input type="range" id="coding_skills" name="coding_skills" class="range-slider"
+                     min="0" max="100" value="50" />
+            </div>
+            <div class="slider-labels">
+              <span>0</span><span>Beginner</span><span>Intermediate</span><span>Advanced</span><span>100</span>
+            </div>
+          </div>
+
+          <!-- Aptitude Score -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="input-label" for="aptitude_score">Aptitude Score</label>
+              <div class="slider-value-wrap">
+                <span class="slider-value" id="aptitude_score_val">50</span>
+                <span class="slider-level level-mid" id="aptitude_score_level">Moderate</span>
+              </div>
+            </div>
+            <div class="slider-track-wrap">
+              <div class="slider-progress" id="aptitude_score_progress" style="width:50%"></div>
+              <input type="range" id="aptitude_score" name="aptitude_score" class="range-slider"
+                     min="0" max="100" value="50" />
+            </div>
+            <div class="slider-labels">
+              <span>0</span><span>Low</span><span>Moderate</span><span>Strong</span><span>100</span>
+            </div>
+          </div>
+
+          <!-- Communication Skills -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <label class="input-label" for="communication_skills">Communication Skills</label>
+              <div class="slider-value-wrap">
+                <span class="slider-value" id="communication_skills_val">50</span>
+                <span class="slider-level level-mid" id="communication_skills_level">Good</span>
+              </div>
+            </div>
+            <div class="slider-track-wrap">
+              <div class="slider-progress" id="communication_skills_progress" style="width:50%"></div>
+              <input type="range" id="communication_skills" name="communication_skills" class="range-slider"
+                     min="0" max="100" value="50" />
+            </div>
+            <div class="slider-labels">
+              <span>0</span><span>Poor</span><span>Good</span><span>Excellent</span><span>100</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Submit -->
+        <div class="submit-wrap">
+          <button type="submit" class="predict-btn" id="predictBtn">
+            <span class="btn-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2a10 10 0 100 20A10 10 0 0012 2z" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M9.5 8.5l5 3.5-5 3.5V8.5z" fill="currentColor"/>
+              </svg>
+            </span>
+            <span class="btn-text">Predict Placement</span>
+            <span class="btn-shimmer"></span>
+          </button>
+          <p class="submit-hint">Analyzed by XGBoost &middot; Results in &lt;1s</p>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         RESULTS SECTION — only shown after POST
+         summary is a dict: access with ['key'] syntax
+    ════════════════════════════════════════════════ -->
+    {% if result %}
+    <div class="results-wrapper" id="resultsSection">
+
+      <!-- VERDICT CARD -->
+      <div class="card verdict-card {% if result == 'Placed' %}verdict-positive{% else %}verdict-negative{% endif %}">
+        <div class="verdict-glow"></div>
+
+        <div class="verdict-content">
+
+          <!-- Icon -->
+          <div class="verdict-icon-wrap">
+            {% if result == 'Placed' %}
+            <svg class="verdict-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {% else %}
+            <svg class="verdict-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 8v5M12 16h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            {% endif %}
+          </div>
+
+          <!-- Text -->
+          <div class="verdict-text-group">
+            {% if result == 'Placed' %}
+            <div class="verdict-status placed">&#10003; Likely to be Placed</div>
+            <div class="verdict-subtext">Strong profile detected. Keep building on your strengths.</div>
+            {% else %}
+            <div class="verdict-status at-risk">&#9888; Placement Risk Detected</div>
+            <div class="verdict-subtext">Action needed. Review recommendations below to improve your chances.</div>
+            {% endif %}
+          </div>
+
+          <!-- Probability Ring -->
+          <div class="probability-display">
+            <div class="prob-ring-wrap">
+              <svg class="prob-ring" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                <circle class="ring-fill" cx="60" cy="60" r="50"
+                  style="stroke-dasharray: {{ ((probability or 0) | float / 100 * 314.16) | round(2) }} 314.16;"/>
+              </svg>
+              <div class="prob-inner">
+                <span class="prob-percent">{{ (probability or 0) }}%</span>
+                <span class="prob-label">chance</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="prob-bar-section">
+          <div class="prob-bar-label">
+            <span>Placement Probability</span>
+            <span>{{ (probability or 0) }}%</span>
+          </div>
+          <div class="prob-bar-track">
+            <div class="prob-bar-fill" style="width: {{ (probability or 0) }}%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM GRID -->
+      <div class="results-grid">
+
+        <!-- STUDENT PROFILE CARD -->
+        <!-- NOTE: summary is a Python dict — access with ['key'] not .key -->
+        <div class="card profile-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3 class="card-title">Submitted Profile</h3>
+              <p class="card-subtitle">Your input parameters</p>
+            </div>
+          </div>
+          <div class="profile-stats-grid">
+            <div class="stat-chip">
+              <span class="stat-icon">&#127891;</span>
+              <div class="stat-body">
+                <span class="stat-label">CGPA</span>
+                <span class="stat-value">{{ summary['cgpa'] }}</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#9888;</span>
+              <div class="stat-body">
+                <span class="stat-label">Backlogs</span>
+                <span class="stat-value">{{ summary['backlogs'] }}</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#128187;</span>
+              <div class="stat-body">
+                <span class="stat-label">Coding</span>
+                <span class="stat-value">{{ summary['coding_skills'] }}/100</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#129504;</span>
+              <div class="stat-body">
+                <span class="stat-label">Aptitude</span>
+                <span class="stat-value">{{ summary['aptitude_score'] }}/100</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#128483;</span>
+              <div class="stat-body">
+                <span class="stat-label">Communication</span>
+                <span class="stat-value">{{ summary['communication_skills'] }}/100</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#127970;</span>
+              <div class="stat-body">
+                <span class="stat-label">Internships</span>
+                <span class="stat-value">{{ summary['internships'] }}</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#128296;</span>
+              <div class="stat-body">
+                <span class="stat-label">Projects</span>
+                <span class="stat-value">{{ summary['projects'] }}</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#128220;</span>
+              <div class="stat-body">
+                <span class="stat-label">Certifications</span>
+                <span class="stat-value">{{ summary['certifications'] }}</span>
+              </div>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-icon">&#9889;</span>
+              <div class="stat-body">
+                <span class="stat-label">Hackathons</span>
+                <span class="stat-value">{{ summary['hackathons'] }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECOMMENDATIONS CARD -->
+        <div class="card reco-card">
+          <div class="card-header">
+            <div class="card-title-group">
+              <h3 class="card-title">Recommendations</h3>
+              <p class="card-subtitle">Personalized action plan</p>
+            </div>
+          </div>
+          <div class="reco-list">
+            {% for rec in recommendations %}
+            <div class="reco-item">
+              <span class="reco-check">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="reco-text">{{ rec }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div><!-- /results-grid -->
+    </div><!-- /results-wrapper -->
+    {% endif %}
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>PlaceIQ &middot; AI Placement Analyzer</span>
+    <span class="footer-sep">&middot;</span>
+    <span>Built with FastAPI + XGBoost</span>
+  </footer>
+
+  <script>
+    // ── Slider Logic ──────────────────────────────────────────────────────────
+    function getLevel(id, v) {
+      if (id === 'coding_skills')        return v <= 30 ? 'Beginner'    : v <= 70 ? 'Intermediate' : 'Advanced';
+      if (id === 'aptitude_score')       return v <= 30 ? 'Low'         : v <= 70 ? 'Moderate'     : 'Strong';
+      if (id === 'communication_skills') return v <= 30 ? 'Poor'        : v <= 70 ? 'Good'         : 'Excellent';
+      return '';
+    }
+
+    function getLevelClass(v) {
+      return v <= 30 ? 'level-low' : v <= 70 ? 'level-mid' : 'level-high';
+    }
+
+    function initSlider(id) {
+      const slider  = document.getElementById(id);
+      const valEl   = document.getElementById(id + '_val');
+      const levelEl = document.getElementById(id + '_level');
+      const progEl  = document.getElementById(id + '_progress');
+
+      function update() {
+        const v = parseInt(slider.value);
+        valEl.textContent   = v;
+        levelEl.textContent = getLevel(id, v);
+        levelEl.className   = 'slider-level ' + getLevelClass(v);
+        progEl.style.width  = v + '%';
+      }
+
+      slider.addEventListener('input', update);
+      update();
+    }
+
+    ['coding_skills', 'aptitude_score', 'communication_skills'].forEach(initSlider);
+
+    // ── Submit Button Loading State ───────────────────────────────────────────
+    document.getElementById('predictForm').addEventListener('submit', function () {
+      const btn = document.getElementById('predictBtn');
+      btn.classList.add('loading');
+      btn.querySelector('.btn-text').textContent = 'Analyzing...';
+    });
+
+    // ── Auto-scroll to Results ────────────────────────────────────────────────
+    window.addEventListener('load', function () {
+      const res = document.getElementById('resultsSection');
+      if (res) {
+        setTimeout(function () {
+          res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 250);
+      }
+    });
+
+    // ── Animate Progress Bar on Load ──────────────────────────────────────────
+    window.addEventListener('load', function () {
+      const fill = document.querySelector('.prob-bar-fill');
+      if (fill) {
+        const target = fill.style.width;
+        fill.style.width = '0%';
+        requestAnimationFrame(function () {
+          setTimeout(function () { fill.style.width = target; }, 80);
+        });
+      }
+      const ring = document.querySelector('.ring-fill');
+      if (ring) {
+        const target = ring.style.strokeDasharray;
+        ring.style.strokeDasharray = '0 314.16';
+        setTimeout(function () { ring.style.strokeDasharray = target; }, 120);
+      }
+    });
+  </script>
+</body>
+</html>
